@@ -1,26 +1,21 @@
-function injectAttributes(target, values) {
-	for(var key in values) {
-		if(values.hasOwnProperty(key) && typeof values[key] === "object") 
-		{
-			if(!target.hasOwnProperty(key)) {
-				target[key] = {};
-			}
-			injectAttributes(target[key], values[key]);
-		} else {
-			target[key] = values[key];
-		}
-	}
-	return target;
+// Powered by Koshka!!!
+
+function removeOverlay()
+{
+	$("#overlay").remove();
 }
 
-function fabricElement(type, options) {
-	var el = document.createElement(type);
-	
-	if(options && typeof options === "object") {
-		injectAttributes(el, options);
-	}
-	
-	return el;
+function makeOverlay()
+{	
+	$("body").prepend("<div id='overlay'></div>");
+
+	$("#overlay").css({
+		"background-color": "grey",
+		"position": "absolute", 
+		"width": $(document).width(), 
+		"height": $(document).height(),
+		"z-index": 99999
+	}).fadeTo(0, 0.4);		
 }
 
 function getAlert(msg, cssClasses, dismiss)
@@ -32,13 +27,13 @@ function getAlert(msg, cssClasses, dismiss)
 		classes += ' alert-dismissible';
 	}
 	
-	var container = fabricElement("div", {
-		className: classes
+	var container = jQuery("<div/>", {
+		class: classes
 	});
 	
-	var closeButton = fabricElement("button", {
-		className: "close",
-		innerText: "x"
+	var closeButton = jQuery("<button/>", {
+		class: "close",
+		text: "x"
 	});
 	
 	$(closeButton).attr('type', 'button');
@@ -52,7 +47,7 @@ function getAlert(msg, cssClasses, dismiss)
 	
 	if (dismiss)
 	{
-		container.appendChild(closeButton);
+		$(container).append(closeButton);
 	}
 	
 	$(container).append(msg);

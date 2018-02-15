@@ -4,88 +4,32 @@
  * and open the template in the editor.
  */
 
+// Powered by Koshka!!!
+
 /* global SERVER_API */
+
+var currentId = null;
 
 function renderAction(data, type, row)
 {
 	var uploadButton = jQuery("<button/>", {
 		type: "button",
-		className: "btn btn-primary btn-xs uploader",
+		class: "btn btn-primary btn-xs uploader",
 		id: "upload_" + row.id,
-		innerText: "Upload"
+		text: "Upload"
 	});
 	
-	return uploadButton.outerHTML;
+	return uploadButton[0].outerHTML;
 }
 
 function uploadDocument(e)
-{
-	$("#file").click();
-	
+{	
 	var buttonId = e.target.id;	
 	var myRegexp = /^upload_(\d)$/;
 	var match = myRegexp.exec(buttonId);
-	var id = match[1];
-	alert(id);
-	return;
+	currentId = match[1];
 	
-	var content = new FormData();
-	var ofile = document.getElementById(id).files[0];
-	content.append('file', ofile);
-	content.append('id', id);
-
-	$.ajax({   
-		type: 'POST',   
-		url: '/api/excel/upload/',   
-		data: content,
-		enctype: 'multipart/form-data',
-		dataType: 'json',
-		processData: false, 
-		contentType: false,
-		cache: false,
-		success: (data) =>
-		{
-			var status = data.status;
-
-			if (status === 'loaded')
-			{
-				var templateId = parseInt($("#template_list").val());
-				var name = data.name;
-				var good = "Файл " + name + " загружен";
-				var msg = getSuccess(good);
-				
-				if (id === 'tools_upload_template')
-				{
-					getExcelConfig(templateId, (errMsg) => {
-						if (errMsg)
-						{
-							getProgress(errMsg);
-						} else {
-							getProgress(msg);
-						}
-					});
-				} else {
-					getProgress(msg);
-				}
-			} else {
-				var msg = getFailed(
-					"Произошла ошибка при загрузке файла : " + 
-					data.message
-				);
-
-				$("#messages").html(msg);
-			}
-
-			$(".overlay").remove();
-		},
-		error: (data, textStatus) =>
-		{
-			handleAjaxError(data, textStatus);
-			$(".overlay").remove();
-		}
-	});
-
-	makeOverlay();		
+	$("#contract_file").click();	
 };
 
 function createContract()
@@ -151,3 +95,41 @@ function listContracts()
 		}
     });
 }
+
+$(() =>
+{
+	$('#contract_file').change(() => 
+	{
+		var url = SERVER_API + "/document";
+		
+		var content = new FormData();
+		var ofile = document.getElementById("contract_file").files[0];
+		content.append('file', ofile);
+		content.append('id', currentId);
+
+		$.ajax({   
+			type: 'PUT',   
+			url: url,   
+			data: content,
+			enctype: 'multipart/form-data',
+			dataType: 'json',
+			processData: false, 
+			contentType: false,
+			cache: false,
+			success: (data) =>
+			{
+				var msg = getSuccess(data.fileName + " uploaded");
+				$("#messages").html(msg);
+				$("#overlay").remove();
+			},
+			error: (data, textStatus) =>
+			{
+				var msg = getAjaxError(data, textStatus);
+				$("#messages").html(msg);
+				$("#overlay").remove();
+			}
+		});
+
+		makeOverlay();
+	});
+});

@@ -3,10 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ru.jetinfosystems.models;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
+package ru.jet.models;
 
 /**
  *
@@ -17,12 +14,10 @@ public class Contract
 	private final int id;
 	private final String name;
 
-	public Contract(int number) 
+	public Contract(int id, String name) 
 	{
-		SimpleDateFormat df = new SimpleDateFormat("dd-MM-yy");
-		Date date = new Date();
-		id = number;
-		name = String.format("%02d от %s", number, df.format(date));
+		this.id = id;
+		this.name = name;
 	}
 	
 	public int getId()

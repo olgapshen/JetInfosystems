@@ -3,15 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ru.jetinfosystems.controllers;
+package ru.jet.controllers;
 
-import java.util.LinkedList;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ru.jetinfosystems.models.Contract;
+import ru.jet.db.DBHelper;
+import ru.jet.models.Contract;
 
 /**
  *
@@ -20,21 +23,31 @@ import ru.jetinfosystems.models.Contract;
 @RestController
 public class ContractController 
 {
+	private final AtomicInteger contractCounter;
+	private final DBHelper helper;
+	
+	public ContractController() 
+	{
+		helper = DBHelper.getInstance();
+		contractCounter = new AtomicInteger(helper.getLastContractId());
+	}
+	
 	@GetMapping("/contract/list")
 	@CrossOrigin(origins = "*")
     public List<Contract> getContracts() 
 	{
-		List<Contract> contracts = new LinkedList<>();
-		contracts.add(new Contract(0));
-		contracts.add(new Contract(1));
-		
-		return contracts;
+		return helper.getContracts();
 	}
 	
 	@PostMapping("/contract")
 	@CrossOrigin(origins = "*")
     public Contract createContract() 
 	{		
-		return new Contract(1);
+		SimpleDateFormat df = new SimpleDateFormat("dd-MM-yy");
+		Date date = new Date();
+		int id = contractCounter.incrementAndGet();
+		String name = String.format("%02d от %s", id, df.format(date));
+		
+		return helper.addContract(name);
 	}
 }
