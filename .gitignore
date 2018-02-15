@@ -1,0 +1,7 @@
+/nbproject/
+/nbactions.xml
+/nb-configuration.xml
+/src/main/webapp/WEB-INF/web.xml
+/target
+*.swp
+/deploy.*.sh
