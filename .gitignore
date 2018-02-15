@@ -1,6 +1,7 @@
 /nbproject/
 /nbactions.xml
 /nb-configuration.xml
+node_modules
 /target
 *.swp
 /deploy.*.sh

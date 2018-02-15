@@ -8,6 +8,7 @@ package ru.jetinfosystems.controllers;
 import java.util.LinkedList;
 import java.util.List;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.jetinfosystems.models.Contract;
 
@@ -19,12 +20,18 @@ import ru.jetinfosystems.models.Contract;
 public class ContractController 
 {
 	@GetMapping("/contract/list")
-    public List<Contract> getDocuments() 
+    public List<Contract> getContracts() 
 	{
 		List<Contract> contracts = new LinkedList<>();
 		contracts.add(new Contract(0));
 		contracts.add(new Contract(1));
 		
 		return contracts;
+	}
+	
+	@PostMapping("/contract")
+    public Contract createContract() 
+	{		
+		return new Contract(1);
 	}
 }

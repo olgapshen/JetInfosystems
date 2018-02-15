@@ -3,8 +3,23 @@
     <head>
         <title>Contracts</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<link href="css/styles.css" rel="stylesheet"/>
+		<link href="node_modules/bootstrap/dist/css/bootstrap.min.css" 
+			  rel="stylesheet"/>
     </head>
-    <body>
-        <h1>Contracts</h1>
+    <body>		
+        <div id="main">
+			<h1>Contracts</h1>
+			<div id="messages"></div>
+			<button onclick="createContract()">Create</button>
+			<button onclick="listContracts()">List</button>
+			
+			<div id="contracts"></div>
+		</div>
+		
+		<script src="node_modules/jquery/dist/jquery.min.js"></script>
+		<script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+		<script src="js/common.js"></script>
+		<script src="js/scripts.js"></script>
     </body>
 </html>

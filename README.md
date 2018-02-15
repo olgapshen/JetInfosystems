@@ -2,10 +2,13 @@
 
 # Test task for JetInfosystems
 
-For build:
+For build, from the project root:
 
 ```
 $ mvn package
+$ cd src/main/webapp
+$ npm install
+$ cd -
 ```
 
 Deploy (Jetty9 preferred):  
