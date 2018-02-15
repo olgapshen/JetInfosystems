@@ -9,22 +9,111 @@
 
     <name>JetInfosystems</name>
     
-	<dependency>
-		<groupId>org.springframework</groupId>
-		<artifactId>spring</artifactId>
-		<version>2.5.6</version>
-	</dependency>
+	<parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.0.0.M7</version>
+    </parent>
+	
+	<dependencies>	
+		<dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-tomcat</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-api</artifactId>
+			<version>2.8.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-core</artifactId>
+			<version>2.8.2</version>
+		</dependency>
+		<dependency>
+		   <groupId>org.json</groupId>
+		   <artifactId>json</artifactId>
+		   <type>jar</type>
+		   <version>20171018</version>
+		</dependency>
+		<dependency>
+		   <groupId>org.springframework.boot</groupId>
+		   <artifactId>spring-boot</artifactId>
+		   <type>jar</type>
+		</dependency>
+	</dependencies>
 
     <build>
         <plugins>
+			<plugin>
+				<groupId>org.eclipse.jetty</groupId>
+				<artifactId>jetty-maven-plugin</artifactId>
+				<version>9.4.8.v20171121</version>
+				<configuration>
+					<webAppConfig>
+						<allowDuplicateFragmentNames>
+							true
+						</allowDuplicateFragmentNames>
+					</webAppConfig>
+				</configuration>
+			</plugin>			
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-war-plugin</artifactId>
+				<version>3.2.0</version>
 				<configuration>
 					<warName>jetinfosystems</warName>
 				</configuration>
             </plugin>
         </plugins>
     </build>
+	
+	<repositories>
+		<repository>
+			<id>spring-snapshots</id>
+			<name>Spring Snapshots</name>
+			<url>https://repo.spring.io/snapshot</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+        <repository>
+            <id>spring-releases</id>
+            <url>https://repo.spring.io/libs-release</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+        </repository>
+		<repository>
+			<id>spring-milestones</id>
+			<name>Spring Milestones</name>
+			<url>https://repo.spring.io/milestone</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+    </repositories>
+    <pluginRepositories>
+		<pluginRepository>
+            <id>repository.spring.release</id>
+            <name>Spring GA Repository</name>
+            <url>https://repo.spring.io/plugins-release/</url>
+        </pluginRepository>
+    </pluginRepositories>
+	
+	<properties>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+    </properties>
 
 </project>
