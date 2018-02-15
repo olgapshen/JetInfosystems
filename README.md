@@ -13,6 +13,8 @@ Example:
 var SERVER_API = "http://localhost:8070/jetinfosystems/";
 ```
 
+Create folder `jetinfosystems` in root of your web server installation.
+
 ## Build
 
 For build, from the project root:

@@ -10,6 +10,7 @@ import java.util.LinkedList;
 import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import ru.jet.constants.Constants;
 import ru.jet.exceptions.JetSqlException;
 import ru.jet.models.Contract;
 import ru.jet.models.Document;
@@ -53,7 +54,11 @@ public class DBHelper
 		
 		try {
 			connection = 
-				DriverManager.getConnection("jdbc:sqlite:jetinfosystems.s3db");
+				DriverManager.getConnection(String.format(
+					"jdbc:sqlite:%s/jetinfosystems.s3db",
+					Constants.DATA_FOLDER
+				));
+			
 			Statement statmt = connection.createStatement();
 			connection.setAutoCommit(false);
 
