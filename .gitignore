@@ -3,6 +3,6 @@
 /nb-configuration.xml
 /target
 /deploy.*.sh
-/src/main/webapp/j/config.js
+/src/main/webapp/js/config.js
 node_modules
 *.swp
