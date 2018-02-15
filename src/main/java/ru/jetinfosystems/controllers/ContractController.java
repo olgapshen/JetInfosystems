@@ -7,6 +7,7 @@ package ru.jetinfosystems.controllers;
 
 import java.util.LinkedList;
 import java.util.List;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,6 +21,7 @@ import ru.jetinfosystems.models.Contract;
 public class ContractController 
 {
 	@GetMapping("/contract/list")
+	@CrossOrigin(origins = "*")
     public List<Contract> getContracts() 
 	{
 		List<Contract> contracts = new LinkedList<>();
@@ -30,6 +32,7 @@ public class ContractController
 	}
 	
 	@PostMapping("/contract")
+	@CrossOrigin(origins = "*")
     public Contract createContract() 
 	{		
 		return new Contract(1);

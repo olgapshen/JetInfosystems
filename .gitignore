@@ -1,7 +1,8 @@
 /nbproject/
 /nbactions.xml
 /nb-configuration.xml
-node_modules
 /target
-*.swp
 /deploy.*.sh
+/src/main/webapp/j/config.js
+node_modules
+*.swp

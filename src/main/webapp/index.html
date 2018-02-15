@@ -6,19 +6,33 @@
 		<link href="css/styles.css" rel="stylesheet"/>
 		<link href="node_modules/bootstrap/dist/css/bootstrap.min.css" 
 			  rel="stylesheet"/>
+		<link href="node_modules/datatables.net-dt/css/jquery.dataTables.css" 
+			  rel="stylesheet"/>
     </head>
     <body>		
         <div id="main">
 			<h1>Contracts</h1>
 			<div id="messages"></div>
-			<button onclick="createContract()">Create</button>
-			<button onclick="listContracts()">List</button>
+			<button type='button' onclick="createContract()">Create</button>
+			<button type='button' onclick="listContracts()">List</button>
+			<input type="file" id="file" />
 			
-			<div id="contracts"></div>
+			<table id="contracts" class="display">
+				<thead>
+					<tr>
+						<th>Name</th>
+						<th>Action</th>
+					</tr>
+				</thead>
+			</table>
 		</div>
 		
 		<script src="node_modules/jquery/dist/jquery.min.js"></script>
 		<script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+		<script src="node_modules/datatables.net/js/jquery.dataTables.js">
+		</script>
+		
+		<script src="js/config.js"></script>
 		<script src="js/common.js"></script>
 		<script src="js/scripts.js"></script>
     </body>

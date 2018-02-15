@@ -18,5 +18,10 @@ and open the template in the editor.
 
 #contracts {
 	margin-top: 30px;
+	display: none;
+}
+
+#file {
+	display: none;
 }
 

@@ -14,13 +14,20 @@ import java.util.Date;
  */
 public class Contract 
 {
+	private final int id;
 	private final String name;
 
 	public Contract(int number) 
 	{
 		SimpleDateFormat df = new SimpleDateFormat("dd-MM-yy");
 		Date date = new Date();
+		id = number;
 		name = String.format("%02d от %s", number, df.format(date));
+	}
+	
+	public int getId()
+	{
+		return id;
 	}
 	
 	public String getName()
