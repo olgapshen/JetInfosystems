@@ -11,10 +11,10 @@ import java.io.IOException;
  *
  * @author Olga Pshenichnikova <o.pshenichnikova@be-interactive.ru>
  */
-public class JetSaveFileException extends RuntimeException
+public class JetDocumentNotFoundException extends RuntimeException
 {
-	public JetSaveFileException(IOException e) 
+	public JetDocumentNotFoundException(IOException e) 
 	{
-		super("Error while save file", e);
+		super("Document not found on the server", e);
 	}
 }

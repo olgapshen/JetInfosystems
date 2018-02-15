@@ -72,7 +72,7 @@ public class DBHelper
 				"CREATE TABLE if not exists `contracts` (" +
 					"`id` INTEGER PRIMARY KEY AUTOINCREMENT, " +
 					"`name` TEXT NOT NULL, " +
-					"`document_id` TEXT NULL, " +
+					"`document_id` INTEGER NULL, " +
 					"FOREIGN KEY(document_id) REFERENCES documents(id)" +
 				")");
 		} catch (SQLException e) {
@@ -102,7 +102,7 @@ public class DBHelper
 		}
     }
 
-    public int getLastContractId() throws JetSqlException
+    public int getLastContractId()
 	{
 		try {
 			PreparedStatement statmt = connection.prepareStatement(
@@ -119,7 +119,7 @@ public class DBHelper
 		}
 	}
 	
-	public Contract addContract(String name) throws JetSqlException
+	public Contract addContract(String name)
 	{
 		try {
 			PreparedStatement statmt = connection.prepareStatement(
@@ -145,32 +145,55 @@ public class DBHelper
 		}
     }
 	
-	public void addDocument(int contractId, Document document) 
+	public Document getDocument(int id)
+	{
+		try {
+			PreparedStatement statmt = connection.prepareStatement(
+				"SELECT filename FROM documents WHERE `id` = ?"
+			);
+
+			statmt.setInt(1, id);
+			ResultSet resSet = statmt.executeQuery();
+			
+			resSet.next();
+			String fileName = resSet.getString("filename");
+			
+			return new Document(id, fileName);
+		} catch (SQLException e) {
+			log.error(e);
+			throw new JetSqlException(e);
+		}
+	}
+	
+	public Document addDocument(int contractId, String fileName) 
 	{
         try {
 			PreparedStatement statmt = connection.prepareStatement(
 				"INSERT INTO 'documents' ('filename') VALUES (?)"
 			);
 
-			statmt.setString(1, document.getFileName());
+			statmt.setString(1, fileName);
 			statmt.execute();
 
 			statmt = connection.prepareStatement(
-				"SELECT last_insert_rowid() as last"
+				"SELECT last_insert_rowid()"
 			);
 
 			ResultSet resSet = statmt.executeQuery();
-			int documentId = resSet.getInt("last");
-
+			resSet.next();
+			int documentId = resSet.getInt(1);
+			
 			statmt = connection.prepareStatement(
-				"UPDATE 'contracts' set ('document_id' = ?) where 'id' = ?"
+				"UPDATE 'contracts' SET `document_id` = ? WHERE `id` = ?"
 			);
 
 			statmt.setInt(1, documentId);
-			statmt.setInt(1, contractId);
+			statmt.setInt(2, contractId);
 			statmt.executeUpdate();
 
 			connection.commit();
+			
+			return new Document(documentId, fileName);
 		} catch (SQLException e) {
 			log.error(e);
 			throw new JetSqlException(e);
@@ -183,7 +206,7 @@ public class DBHelper
 		
 		try {
 			PreparedStatement statmt = connection.prepareStatement(
-				"SELECT id, name FROM 'contracts'"
+				"SELECT id, name, document_id FROM 'contracts'"
 			);
 
 			ResultSet resSet = statmt.executeQuery();
@@ -193,6 +216,13 @@ public class DBHelper
 					resSet.getInt("id"), 
 					resSet.getString("name")
 				);
+				
+				int documentId = resSet.getInt("document_id");
+				
+				if (documentId > 0)
+				{
+					contract.setDocument(documentId);
+				}
 				
 				contracts.add(contract);
 			}

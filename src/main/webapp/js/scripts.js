@@ -22,6 +22,21 @@ function renderAction(data, type, row)
 	return uploadButton[0].outerHTML;
 }
 
+function renderDownload(data, type, row)
+{
+	if (!row.documentId)
+	{
+		return "";
+	}
+	
+	var downloadLink = jQuery("<a/>", {
+		href: SERVER_API + "/document/" + row.documentId,
+		text: "Download"
+	});
+	
+	return downloadLink[0].outerHTML;
+}
+
 function uploadDocument(e)
 {	
 	var buttonId = e.target.id;	
@@ -49,6 +64,7 @@ function createContract()
 		{
 			var msg = getSuccess(data.name + " created");
 			$("#messages").html(msg);
+			listContracts();
 		}
     });
 }
@@ -84,6 +100,12 @@ function listContracts()
 						targets: 1,
 						orderable: false,
 						render: renderAction
+					},
+					{
+						data: 'documentId', 
+						targets: 2,
+						orderable: false,
+						render: renderDownload
 					}
 				]
 			};
@@ -121,6 +143,7 @@ $(() =>
 				var msg = getSuccess(data.fileName + " uploaded");
 				$("#messages").html(msg);
 				$("#overlay").remove();
+				listContracts();
 			},
 			error: (data, textStatus) =>
 			{
@@ -132,4 +155,6 @@ $(() =>
 
 		makeOverlay();
 	});
+	
+	listContracts();
 });

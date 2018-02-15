@@ -3,6 +3,7 @@
 /nb-configuration.xml
 /target
 /deploy.*.sh
+/jetinfosystems
 /src/main/webapp/js/config.js
 node_modules
 *.swp

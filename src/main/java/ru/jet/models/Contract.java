@@ -13,11 +13,23 @@ public class Contract
 {
 	private final int id;
 	private final String name;
+	private Integer documentId;
 
 	public Contract(int id, String name) 
 	{
 		this.id = id;
 		this.name = name;
+		documentId = null;
+	}
+
+	public void setDocument(Integer documentId)
+	{
+		this.documentId = documentId;
+	}
+	
+	public Integer getDocumentId()
+	{
+		return documentId;
 	}
 	
 	public int getId()
