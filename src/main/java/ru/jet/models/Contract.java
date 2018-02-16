@@ -22,7 +22,7 @@ public class Contract
 		documentId = null;
 	}
 
-	public void setDocument(Integer documentId)
+	public void setDocument(int documentId)
 	{
 		this.documentId = documentId;
 	}
@@ -30,6 +30,11 @@ public class Contract
 	public Integer getDocumentId()
 	{
 		return documentId;
+	}
+	
+	public boolean documentAppended()
+	{
+		return documentId != null;
 	}
 	
 	public int getId()

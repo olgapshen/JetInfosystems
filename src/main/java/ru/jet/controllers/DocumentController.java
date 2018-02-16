@@ -16,6 +16,7 @@ import java.net.URLConnection;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import javax.servlet.http.HttpServletResponse;
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -53,7 +54,26 @@ public class DocumentController
 		@RequestParam(value="id") int id
 	) {		
 		Contract contract = helper.getContract(id);
-		String fileName = String.format("doc_%s", contract.getName());
+		
+		int version = 0;
+		
+		if (contract.documentAppended())
+		{
+			version = contract.getDocumentId();
+		}
+		
+		String fileName = String.format(
+			"doc_%d_%s", 
+			version, 
+			contract.getName()
+		);
+		
+		String ext = FilenameUtils.getExtension(file.getOriginalFilename());
+		
+		if (!ext.isEmpty())
+		{
+			fileName += "." + ext;
+		}
 		
 		Path out = Paths.get(Constants.DATA_FOLDER, fileName);
 		File newFile = out.toFile();
