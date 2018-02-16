@@ -119,6 +119,39 @@ public class DBHelper
 		}
 	}
 	
+	public Contract getContract(int id)
+	{
+		try {
+			PreparedStatement statmt = connection.prepareStatement(
+				"SELECT name, document_id " + 
+				"FROM 'contracts' " +
+				"WHERE `id` = ?"
+			);
+			
+			statmt.setInt(1, id);
+
+			ResultSet resSet = statmt.executeQuery();
+			resSet.next();
+			
+			Contract contract = new Contract(
+				id, 
+				resSet.getString("name")
+			);
+			
+			int documentId = resSet.getInt("document_id");
+				
+			if (documentId > 0)
+			{
+				contract.setDocument(documentId);
+			}
+			
+			return contract;
+		} catch (SQLException e) {
+			log.error(e);
+			throw new JetSqlException(e);
+		}		
+	}
+	
 	public Contract addContract(String name)
 	{
 		try {

@@ -13,6 +13,14 @@ Example:
 var SERVER_API = "http://localhost:8070/jetinfosystems/";
 ```
 
+Server path can be follow for different environment:
+
+1. Run frontend stand alone, request backend from the server: 
+"http://localhost:8070/jetinfosystems"
+2. Run frontend stand alone, request backend from the debugger: 
+"http://localhost:8888"
+3. Run frontend and backend from deployed server or debugger: ".";
+
 Create folder `jetinfosystems` in root of your web server installation.
 
 ## Build

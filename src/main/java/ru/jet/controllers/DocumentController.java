@@ -29,6 +29,7 @@ import ru.jet.constants.Constants;
 import ru.jet.db.DBHelper;
 import ru.jet.exceptions.JetDocumentNotFoundException;
 import ru.jet.exceptions.JetSaveFileException;
+import ru.jet.models.Contract;
 import ru.jet.models.Document;
 
 /**
@@ -47,11 +48,13 @@ public class DocumentController
 	
 	@PutMapping("/document")
 	@CrossOrigin(origins = "*")
-    public Document uploadContract(
+    public Document uploadDocument(
 		@RequestParam("file") MultipartFile file,
 		@RequestParam(value="id") int id
 	) {		
-		String fileName = file.getOriginalFilename();
+		Contract contract = helper.getContract(id);
+		String fileName = String.format("doc_%s", contract.getName());
+		
 		Path out = Paths.get(Constants.DATA_FOLDER, fileName);
 		File newFile = out.toFile();
 		

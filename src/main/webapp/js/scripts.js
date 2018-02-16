@@ -40,7 +40,7 @@ function renderDownload(data, type, row)
 function uploadDocument(e)
 {	
 	var buttonId = e.target.id;	
-	var myRegexp = /^upload_(\d)$/;
+	var myRegexp = /^upload_(\d+)$/;
 	var match = myRegexp.exec(buttonId);
 	currentId = match[1];
 	
