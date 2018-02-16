@@ -10,7 +10,7 @@ Set `SERVER_API` variable pointing to web application root.
 Example:  
 
 ```
-var SERVER_API = "http://localhost:8070/jetinfosystems/";
+const SERVER_API = "http://localhost:8070/jetinfosystems/";
 ```
 
 Server path can be follow for different environment:
