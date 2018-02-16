@@ -44,6 +44,7 @@ function uploadDocument(e)
 	var match = myRegexp.exec(buttonId);
 	currentId = match[1];
 	
+	$('#contract_file').val(null);
 	$("#contract_file").click();	
 };
 
