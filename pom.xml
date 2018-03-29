@@ -89,7 +89,7 @@
         </plugins>
     </build>
 	
-	<repositories>
+	<!--<repositories>
 		<repository>
 			<id>spring-snapshots</id>
 			<name>Spring Snapshots</name>
@@ -120,7 +120,7 @@
             <name>Spring GA Repository</name>
             <url>https://repo.spring.io/plugins-release/</url>
         </pluginRepository>
-    </pluginRepositories>
+    </pluginRepositories>-->
 	
 	<properties>
         <maven.compiler.source>1.8</maven.compiler.source>
